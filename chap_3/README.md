@@ -4,8 +4,6 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 
 ![alt text](image.png)
 
-### Chapter 3: Multidimensional grids and data
-
 - **CUDA Thread Organization:**
   - Threads are organized in a two-level hierarchy: a grid of blocks, each block containing threads.
   - Each thread has coordinates accessible via built-in variables: `blockIdx`, `threadIdx`.
@@ -21,7 +19,7 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 
 - **Limits and Dimensions:**
   - Maximum threads per block: 1024.
-  - Allowed block dimensions examples: $(512,1,1)$, $(8,16,4)$, $(32,16,2)$ are valid; $(32,32,2)$ is invalid (exceeds 1024).
+  - Allowed block dimensions examples: \( (512,1,1) \), \( (8,16,4) \), \( (32,16,2) \) are valid; \( (32,32,2) \) is invalid (exceeds 1024).
   - Grid and block dimensionality can differ.
 
 - **Mapping Threads to Multidimensional Data:**
@@ -115,4 +113,3 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
   - Multidimensional data is often linearized into 1D arrays in row-major order.
   - Proper mapping of threads to data is essential.
   - Examples progress from simple vector addition to image processing and matrix multiplication.
-
