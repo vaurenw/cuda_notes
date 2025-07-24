@@ -4,6 +4,8 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 
 ![alt text](image.png)
 
+### Chapter 3: Multidimensional grids and data
+
 - **CUDA Thread Organization:**
   - Threads are organized in a two-level hierarchy: a grid of blocks, each block containing threads.
   - Each thread has coordinates accessible via built-in variables: `blockIdx`, `threadIdx`.
@@ -19,19 +21,19 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 
 - **Limits and Dimensions:**
   - Maximum threads per block: 1024.
-  - Allowed block dimensions examples: `(512,1,1)`, `(8,16,4)`, `(32,16,2)` are valid; `(32,32,2)` is invalid (exceeds 1024).
+  - Allowed block dimensions examples: $(512,1,1)$, $(8,16,4)$, $(32,16,2)$ are valid; $(32,32,2)$ is invalid (exceeds 1024).
   - Grid and block dimensionality can differ.
 
 - **Mapping Threads to Multidimensional Data:**
   - Use thread and block indices to map threads to data elements.
   - Example: processing a 2D image of size \( n \times m \) with 2D blocks and grids.
   - Coordinates for pixel processed by a thread:
-    \[
+    $$
     \text{row} = blockIdx.y \times blockDim.y + threadIdx.y
-    \]
-    \[
+    $$
+    $$
     \text{col} = blockIdx.x \times blockDim.x + threadIdx.x
-    \]
+    $$
   - Extra threads may be generated; use if-statements to check bounds.
 
 - **Linearizing Multidimensional Arrays:**
@@ -46,9 +48,9 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 - **Example: Color to Grayscale Conversion Kernel**
   - Each thread converts one pixel.
   - Grayscale value computed as:
-    \[
+    $$
     L = 0.21 \times r + 0.72 \times g + 0.07 \times b
-    \]
+    $$
   - Access color pixel as 3 consecutive bytes (r, g, b).
   - Kernel snippet:
     ```cpp
@@ -87,9 +89,9 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
 - **Matrix Multiplication:**
   - Multiply \( M \) (size \( I \times j \)) and \( N \) (size \( j \times k \)) to produce \( P \) (size \( I \times k \)).
   - Each element \( P_{row,col} \) is the dot product of row \( row \) of \( M \) and column \( col \) of \( N \):
-    \[
+    $$
     P_{row,col} = \sum_{k=0}^{Width-1} M_{row,k} \times N_{k,col}
-    \]
+    $$
   - Map threads to output matrix elements: each thread computes one \( P \) element.
   - Access linearized arrays in row-major order:
     - \( M[row \times Width + k] \)
@@ -114,6 +116,3 @@ In CUDA, all threads in a grid execute the same kernel function, and they rely o
   - Proper mapping of threads to data is essential.
   - Examples progress from simple vector addition to image processing and matrix multiplication.
 
----
-
-If you want, I can also help with the exercises or further explanations!
